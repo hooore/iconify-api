@@ -1,16 +1,15 @@
 name: cd
 
-on: push
+on:
+    push:
+        branches:
+            - main
+            - next
+    pull_request:
+        branches:
+            - main
+            - next
 
-# on:
-#     push:
-#         branches:
-#             - main
-#             - next
-#     pull_request:
-#         branches:
-#             - main
-#             - next
 env:
   IMAGE_NAME: ${{ github.repository }}
 
