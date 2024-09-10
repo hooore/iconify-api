@@ -33,5 +33,6 @@ jobs:
 
             - name: 🚀 Deploy image
               run: |
-                echo ${{ secrets.CR_PAT }}
+                echo ${{ secrets.CR_PAT }} | docker login ghcr.io -u USERNAME --password-stdin
                 docker tag iconify/api ghcr.io/hooore/iconify-api:latest
+                docker push ghcr.io/hooore/iconify-api:latest
