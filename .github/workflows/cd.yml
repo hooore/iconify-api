@@ -32,9 +32,8 @@ jobs:
 
             - name: 🚧 Build image
               run: |
-                GITHUB_RUN_ID=${GITHUB_RUN_ID} IMAGE_SOURCE=https://github.com/$IMAGE_NAME npm run docker:build
+                env GITHUB_RUN_ID=${GITHUB_RUN_ID} IMAGE_SOURCE=https://github.com/$IMAGE_NAME sh -c 'npm run docker:build'
                 docker tag iconify/api $IMAGE_NAME
-
 
             - name: 🔓 Log in to registry
               run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
