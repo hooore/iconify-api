@@ -47,6 +47,8 @@ else
 fi
 
 time docker build --rm=false \
+    --label runnumber=${GITHUB_RUN_ID} \
+    --label org.opencontainers.image.source=${IMAGE_SOURCE} \
     --build-arg ARCH=$ARCH \
     --build-arg ICONIFY_API_VERSION=${ICONIFY_API_VERSION} \
     --build-arg BUILD_DATE="$(date +"%Y-%m-%dT%H:%M:%SZ")" \
