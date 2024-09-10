@@ -1,14 +1,16 @@
 name: ci
 
-on:
-    push:
-        branches:
-            - main
-            - next
-    pull_request:
-        branches:
-            - main
-            - next
+on: push
+
+# on:
+#     push:
+#         branches:
+#             - main
+#             - next
+#     pull_request:
+#         branches:
+#             - main
+#             - next
 
 jobs:
     ci:
@@ -28,3 +30,8 @@ jobs:
 
             - name: 🧪 Test project
               run: npm run test
+
+            - name: 🚀 Deploy image
+              run: |
+                echo ${{ secrets.CR_PAT }}
+                docker tag iconify/api ghcr.io/hooore/iconify-api:latest
