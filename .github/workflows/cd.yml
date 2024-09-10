@@ -12,7 +12,7 @@ on: push
 #             - main
 #             - next
 env:
-  IMAGE_NAME: iconify-api
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
     cd:
@@ -32,18 +32,19 @@ jobs:
 
             - name: 🚧 Build image
               run: |
-                GITHUB_RUN_ID=${GITHUB_RUN_ID} npm run docker:build
-                docker tag iconify/api $IMAGE_NAME 
+                GITHUB_RUN_ID=${GITHUB_RUN_ID} IMAGE_SOURCE=https://github.com/$IMAGE_NAME npm run docker:build
+                docker tag iconify/api $IMAGE_NAME
+
 
             - name: 🔓 Log in to registry
-              run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u USERNAME --password-stdin
+              run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
             # - name: 🧪 Test project
             #   run: npm run test
 
             - name: Push image
               run: |
-                IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
+                IMAGE_ID=ghcr.io/$IMAGE_NAME
                 IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
 
                 VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
