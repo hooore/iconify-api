@@ -1,4 +1,4 @@
-name: ci
+name: cd
 
 on: push
 
@@ -18,15 +18,15 @@ jobs:
 
         steps:
             - uses: actions/checkout@v4
-            - uses: actions/setup-node@v4
-              with:
-                  node-version: 'latest'
+            # - uses: actions/setup-node@v4
+            #   with:
+            #       node-version: 'latest'
 
-            - name: 📦 Install dependencies
-              run: npm ci
+            # - name: 📦 Install dependencies
+            #   run: npm ci
 
-            - name: 🚧 Build project
-              run: npm run build
+            - name: 🚧 Build image
+              run: docker:build
 
             # - name: 🧪 Test project
             #   run: npm run test
