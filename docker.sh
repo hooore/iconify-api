@@ -46,6 +46,9 @@ else
     touch $BUILD_SOURCE/tmp/build-ca-cert.crt
 fi
 
+echo ${GITHUB_RUN_ID}
+echo ${IMAGE_SOURCE}
+
 time docker build --rm=false \
     --label runnumber=${GITHUB_RUN_ID} \
     --label org.opencontainers.image.source=${IMAGE_SOURCE} \
